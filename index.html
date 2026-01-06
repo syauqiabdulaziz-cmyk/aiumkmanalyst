@@ -1,0 +1,1270 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI UMKM Assistant - Prototype</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-logo">
+                    <i class="fas fa-robot"></i>
+                    <h1>AI UMKM Assistant</h1>
+                    <p class="subtitle">Sistem Informasi UMKM Berbasis AI (Prototype)</p>
+                </div>
+                
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" id="loginUserBtn">
+                        <i class="fas fa-user"></i> Masuk sebagai User
+                    </button>
+                    <button class="btn btn-secondary" id="loginAdminBtn">
+                        <i class="fas fa-cog"></i> Masuk sebagai Admin
+                    </button>
+                </div>
+                
+                <div class="hero-features">
+                    <div class="feature-item">
+                        <i class="fas fa-calculator"></i>
+                        <span>Hitung Keuangan Otomatis</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-brain"></i>
+                        <span>Saran AI untuk UMKM</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Analisis & Prediksi</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Section -->
+    <section id="login" class="login-section hidden">
+        <div class="container">
+            <div class="login-card">
+                <div class="login-header">
+                    <i class="fas fa-store"></i>
+                    <h2>Login UMKM Assistant</h2>
+                    <p>Masuk dengan nama toko Anda</p>
+                </div>
+                
+                <div class="login-tabs">
+                    <button class="tab-btn active" data-tab="login-tab">Login</button>
+                    <button class="tab-btn" data-tab="register-tab">Daftar Akun</button>
+                </div>
+                
+                <!-- Login Form -->
+                <div id="login-tab" class="tab-content active">
+                    <div class="form-group">
+                        <label for="storeName"><i class="fas fa-store"></i> Nama Toko</label>
+                        <input type="text" id="storeName" class="form-control" placeholder="Masukkan nama toko Anda">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password"><i class="fas fa-lock"></i> Kata Sandi</label>
+                        <input type="password" id="password" class="form-control" placeholder="Masukkan kata sandi">
+                    </div>
+                    
+                    <div class="form-group">
+                        <button class="btn btn-primary btn-block" id="loginBtn">
+                            <i class="fas fa-sign-in-alt"></i> Masuk ke Dashboard
+                        </button>
+                    </div>
+                    
+                    <div class="login-demo">
+                        <p>Atau coba <button class="demo-btn" id="demoLoginBtn">Mode Demo</button> tanpa login</p>
+                    </div>
+                </div>
+                
+                <!-- Register Form -->
+                <div id="register-tab" class="tab-content">
+                    <div class="form-group">
+                        <label for="newStoreName"><i class="fas fa-store"></i> Nama Toko</label>
+                        <input type="text" id="newStoreName" class="form-control" placeholder="Masukkan nama toko baru">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="ownerName"><i class="fas fa-user"></i> Nama Pemilik</label>
+                        <input type="text" id="ownerName" class="form-control" placeholder="Masukkan nama pemilik">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="newPassword"><i class="fas fa-lock"></i> Kata Sandi</label>
+                        <input type="password" id="newPassword" class="form-control" placeholder="Buat kata sandi">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword"><i class="fas fa-lock"></i> Konfirmasi Kata Sandi</label>
+                        <input type="password" id="confirmPassword" class="form-control" placeholder="Ulangi kata sandi">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="businessType"><i class="fas fa-briefcase"></i> Jenis Usaha</label>
+                        <select id="businessType" class="form-control">
+                            <option value="">Pilih jenis usaha</option>
+                            <option value="makanan">Makanan & Minuman</option>
+                            <option value="fashion">Fashion</option>
+                            <option value="elektronik">Elektronik</option>
+                            <option value="jasa">Jasa</option>
+                            <option value="lainnya">Lainnya</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button class="btn btn-secondary btn-block" id="registerBtn">
+                            <i class="fas fa-user-plus"></i> Daftar Akun Baru
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="login-footer">
+                    <button class="btn btn-back" id="backToHero">
+                        <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard User Section -->
+    <section id="dashboard" class="dashboard-section hidden">
+        <div class="container">
+            <!-- Header Dashboard -->
+            <div class="dashboard-header">
+                <div class="user-info">
+                    <h2><i class="fas fa-store"></i> <span id="currentStoreName">Toko Saya</span></h2>
+                    <p id="currentUsername">Pemilik: User</p>
+                    <div class="user-level">
+                        <span class="level-badge" id="userLevel">Pemula</span>
+                        <span class="health-score" id="healthScore">Skor: 75</span>
+                    </div>
+                </div>
+                
+                <div class="dashboard-controls">
+                    <button class="btn btn-secondary" id="logoutBtn">
+                        <i class="fas fa-sign-out-alt"></i> Keluar
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Notifikasi -->
+            <div id="notification" class="notification hidden">
+                <i class="fas fa-info-circle"></i>
+                <span id="notificationText">Notifikasi akan muncul di sini</span>
+                <button class="notification-close" id="closeNotification">&times;</button>
+            </div>
+            
+            <!-- Menu Dashboard -->
+            <div class="dashboard-menu">
+                <button class="menu-btn active" data-section="daily-data">
+                    <i class="fas fa-calendar-day"></i> Data Harian
+                </button>
+                <button class="menu-btn" data-section="finance">
+                    <i class="fas fa-chart-pie"></i> Keuangan
+                </button>
+                <button class="menu-btn" data-section="ai-assistant">
+                    <i class="fas fa-robot"></i> AI Assistant
+                </button>
+                <button class="menu-btn" data-section="history">
+                    <i class="fas fa-history"></i> Riwayat
+                </button>
+                <button class="menu-btn" data-section="analysis">
+                    <i class="fas fa-chart-bar"></i> Analisis
+                </button>
+            </div>
+            
+            <!-- Data Harian Section -->
+            <div id="daily-data" class="dashboard-section-content active">
+                <div class="section-header">
+                    <h3><i class="fas fa-calendar-day"></i> Data Harian Usaha</h3>
+                    <p>Catat penjualan dan pengeluaran harian Anda</p>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- Modal Awal Harian -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-shopping-cart"></i> Modal Awal Harian</h4>
+                                <p>Daftar barang/produk yang dibeli untuk operasional hari ini</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="itemName">Nama Barang/Produk</label>
+                                    <input type="text" id="itemName" class="form-control" placeholder="Contoh: Beras 5kg, Telur 1kg">
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="itemQuantity">Jumlah</label>
+                                            <input type="number" id="itemQuantity" class="form-control" placeholder="0" min="0">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="itemPrice">Harga per Unit</label>
+                                            <input type="number" id="itemPrice" class="form-control" placeholder="0" min="0">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="itemCategory">Kategori</label>
+                                    <select id="itemCategory" class="form-control">
+                                        <option value="bahan-baku">Bahan Baku</option>
+                                        <option value="operasional">Biaya Operasional</option>
+                                        <option value="lainnya">Lainnya</option>
+                                    </select>
+                                </div>
+                                
+                                <button class="btn btn-primary" id="addItemBtn">
+                                    <i class="fas fa-plus"></i> Tambah ke Daftar Modal
+                                </button>
+                                
+                                <div class="item-list-container">
+                                    <h5>Daftar Modal Harian</h5>
+                                    <div id="itemList" class="item-list">
+                                        <p class="empty-message">Belum ada item ditambahkan</p>
+                                    </div>
+                                    <div class="item-total">
+                                        <strong>Total Modal Harian: <span id="totalDailyModal">0</span></strong>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Checklist Aktivitas -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-tasks"></i> Checklist Aktivitas UMKM</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="checklist">
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="check1">
+                                        <span class="checkmark"></span>
+                                        Catat penjualan harian
+                                    </label>
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="check2">
+                                        <span class="checkmark"></span>
+                                        Cek stok barang
+                                    </label>
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="check3">
+                                        <span class="checkmark"></span>
+                                        Hitung laba rugi
+                                    </label>
+                                    <label class="checkbox-container">
+                                        <input type="checkbox" id="check4">
+                                        <span class="checkmark"></span>
+                                        Evaluasi biaya operasional
+                                    </label>
+                                </div>
+                                
+                                <div id="checklistStatus" class="checklist-status hidden">
+                                    <p class="success-message"><i class="fas fa-trophy"></i> Produktif Hari Ini!</p>
+                                </div>
+                                
+                                <button class="btn btn-secondary mt-3" id="resetChecklistBtn">
+                                    <i class="fas fa-redo"></i> Reset Checklist
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <!-- Data Penjualan Harian -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-cash-register"></i> Data Penjualan Harian</h4>
+                                <p>Catat produk yang terjual hari ini</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="soldProduct">Nama Produk yang Terjual</label>
+                                    <input type="text" id="soldProduct" class="form-control" placeholder="Contoh: Nasi Goreng, Es Teh">
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="soldQuantity">Jumlah Terjual</label>
+                                            <input type="number" id="soldQuantity" class="form-control" placeholder="0" min="0">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label for="soldPrice">Harga Jual per Unit</label>
+                                            <input type="number" id="soldPrice" class="form-control" placeholder="0" min="0">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <button class="btn btn-primary" id="addSaleBtn">
+                                    <i class="fas fa-plus"></i> Tambah Penjualan
+                                </button>
+                                
+                                <div class="item-list-container">
+                                    <h5>Daftar Penjualan Harian</h5>
+                                    <div id="salesList" class="item-list">
+                                        <p class="empty-message">Belum ada penjualan dicatat</p>
+                                    </div>
+                                    <div class="item-total">
+                                        <strong>Total Penjualan Harian: <span id="totalDailySales">0</span></strong>
+                                    </div>
+                                </div>
+                                
+                                <div class="daily-summary mt-4">
+                                    <h5>Ringkasan Harian</h5>
+                                    <div class="summary-item">
+                                        <span>Total Modal:</span>
+                                        <span id="summaryModal">0</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span>Total Penjualan:</span>
+                                        <span id="summarySales">0</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span>Laba/Rugi:</span>
+                                        <span id="summaryProfit" class="profit-text">0</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="daily-actions mt-4">
+                                    <button class="btn btn-success" id="saveDailyDataBtn">
+                                        <i class="fas fa-save"></i> Simpan Data Harian
+                                    </button>
+                                    <button class="btn btn-secondary" id="demoDailyBtn">
+                                        <i class="fas fa-magic"></i> Mode Demo
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Keuangan Section -->
+            <div id="finance" class="dashboard-section-content">
+                <div class="section-header">
+                    <h3><i class="fas fa-chart-pie"></i> Analisis Keuangan Usaha</h3>
+                    <p>Kelola dan analisis keuangan usaha Anda</p>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- Form Input Data Usaha -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-edit"></i> Input Data Keuangan</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="modalAwal">Modal Awal (Rp)</label>
+                                    <input type="number" id="modalAwal" class="form-control" placeholder="Masukkan modal awal" value="10000000">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="penjualan">Total Penjualan (Rp)</label>
+                                    <input type="number" id="penjualan" class="form-control" placeholder="Masukkan total penjualan" value="15000000">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="biayaOperasional">Biaya Operasional (Rp)</label>
+                                    <input type="number" id="biayaOperasional" class="form-control" placeholder="Masukkan biaya operasional" value="5000000">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="pajak">Pajak / PPN (%)</label>
+                                    <input type="number" id="pajak" class="form-control" placeholder="Masukkan persentase pajak" value="10" min="0" max="100">
+                                </div>
+                                
+                                <button class="btn btn-primary btn-block" id="hitungKeuanganBtn">
+                                    <i class="fas fa-calculator"></i> Hitung Keuangan
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Target Bulanan -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-bullseye"></i> Target Bulanan</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="targetPenjualan">Target Penjualan (Rp)</label>
+                                    <input type="number" id="targetPenjualan" class="form-control" placeholder="Masukkan target penjualan" value="20000000">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="targetLaba">Target Laba (Rp)</label>
+                                    <input type="number" id="targetLaba" class="form-control" placeholder="Masukkan target laba" value="5000000">
+                                </div>
+                                
+                                <div class="progress-container">
+                                    <p>Progress Target Penjualan</p>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="salesProgress" style="width: 0%"></div>
+                                    </div>
+                                    <span id="salesProgressText">0%</span>
+                                </div>
+                                
+                                <div class="progress-container">
+                                    <p>Progress Target Laba</p>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="profitProgress" style="width: 0%"></div>
+                                    </div>
+                                    <span id="profitProgressText">0%</span>
+                                </div>
+                                
+                                <button class="btn btn-secondary mt-3" id="updateTargetBtn">
+                                    <i class="fas fa-sync"></i> Update Progress
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <!-- Output Hasil Perhitungan -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-chart-bar"></i> Hasil Perhitungan</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="result-item">
+                                    <span>Total Pemasukan:</span>
+                                    <strong id="totalPemasukan">Rp 0</strong>
+                                </div>
+                                
+                                <div class="result-item">
+                                    <span>Total Pengeluaran:</span>
+                                    <strong id="totalPengeluaran">Rp 0</strong>
+                                </div>
+                                
+                                <div class="result-item">
+                                    <span>Pajak:</span>
+                                    <strong id="pajakResult">Rp 0</strong>
+                                </div>
+                                
+                                <div class="result-item">
+                                    <span>Laba / Rugi:</span>
+                                    <strong id="labaRugi" class="profit-text">Rp 0</strong>
+                                </div>
+                                
+                                <div class="result-summary mt-4">
+                                    <h5>Status Keuangan</h5>
+                                    <div id="financeStatus" class="status-badge">-</div>
+                                    <p id="financeDescription" class="mt-2">Data keuangan akan muncul setelah perhitungan</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Simulasi Modal Usaha -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-play-circle"></i> Simulasi Modal Usaha</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label for="simulasiModal">Modal Awal Simulasi (Rp)</label>
+                                    <input type="number" id="simulasiModal" class="form-control" placeholder="Masukkan modal simulasi" value="5000000">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="simulasiTarget">Target Penjualan (Rp)</label>
+                                    <input type="number" id="simulasiTarget" class="form-control" placeholder="Masukkan target penjualan" value="8000000">
+                                </div>
+                                
+                                <button class="btn btn-primary btn-block" id="simulasiUsahaBtn">
+                                    <i class="fas fa-play"></i> Simulasikan Usaha
+                                </button>
+                                
+                                <div id="simulasiResult" class="mt-4 hidden">
+                                    <h5>Hasil Simulasi</h5>
+                                    <div class="result-item">
+                                        <span>Estimasi Laba/Rugi:</span>
+                                        <strong id="simulasiLaba">Rp 0</strong>
+                                    </div>
+                                    <div class="result-item">
+                                        <span>ROI (Return on Investment):</span>
+                                        <strong id="simulasiROI">0%</strong>
+                                    </div>
+                                    <p id="simulasiCatatan" class="mt-2"><i class="fas fa-robot"></i> <em>Catatan AI: Simulasi berdasarkan asumsi standar industri</em></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- AI Assistant Section -->
+            <div id="ai-assistant" class="dashboard-section-content">
+                <div class="section-header">
+                    <h3><i class="fas fa-robot"></i> AI Assistant UMKM</h3>
+                    <p>Dapatkan saran dan analisis dari AI untuk usaha Anda</p>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <!-- AI Mentor Harian -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-graduation-cap"></i> AI Mentor Harian</h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="ai-description">Dapatkan tips bisnis harian untuk meningkatkan usaha UMKM Anda</p>
+                                
+                                <div class="ai-output" id="aiTipsOutput">
+                                    <p>Klik tombol di bawah untuk mendapatkan tips bisnis hari ini</p>
+                                </div>
+                                
+                                <button class="btn btn-primary btn-block" id="aiTipsBtn">
+                                    <i class="fas fa-lightbulb"></i> Tips Bisnis Hari Ini
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Question AI -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-question-circle"></i> Quick Question AI</h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="ai-description">Pilih pertanyaan cepat untuk mendapatkan jawaban dari AI</p>
+                                
+                                <div class="quick-questions">
+                                    <button class="quick-question-btn" data-question="health">
+                                        <i class="fas fa-heartbeat"></i> Usaha saya sehat?
+                                    </button>
+                                    <button class="quick-question-btn" data-question="revenue">
+                                        <i class="fas fa-money-bill-wave"></i> Cara menaikkan omzet?
+                                    </button>
+                                    <button class="quick-question-btn" data-question="cost">
+                                        <i class="fas fa-chart-line-down"></i> Biaya apa bisa dikurangi?
+                                    </button>
+                                </div>
+                                
+                                <div class="ai-output mt-3" id="quickAnswerOutput">
+                                    <p>Jawaban AI akan muncul di sini</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- AI Prediksi -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-crystal-ball"></i> AI Prediksi</h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="ai-description">Dapatkan prediksi performa usaha bulan depan berdasarkan data saat ini</p>
+                                
+                                <div class="ai-output" id="predictionOutput">
+                                    <p>Prediksi akan muncul setelah klik tombol</p>
+                                </div>
+                                
+                                <button class="btn btn-primary btn-block" id="predictionBtn">
+                                    <i class="fas fa-chart-line"></i> Prediksi Bulan Depan
+                                </button>
+                                
+                                <p class="disclaimer mt-2"><small><i class="fas fa-info-circle"></i> <em>Ini adalah simulasi prediksi berbasis data input Anda</em></small></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <!-- AI Keuangan -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-comments-dollar"></i> AI Keuangan</h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="ai-description">Ajukan pertanyaan spesifik tentang keuangan usaha Anda</p>
+                                
+                                <div class="form-group">
+                                    <label for="aiQuestion">Pertanyaan Bisnis Anda</label>
+                                    <textarea id="aiQuestion" class="form-control" rows="3" placeholder="Contoh: Bagaimana cara meningkatkan laba usaha saya?"></textarea>
+                                </div>
+                                
+                                <button class="btn btn-primary btn-block" id="aiQuestionBtn">
+                                    <i class="fas fa-paper-plane"></i> Tanya AI
+                                </button>
+                                
+                                <div class="ai-output mt-4" id="aiFinanceOutput">
+                                    <p>Jawaban AI akan muncul di sini berdasarkan kondisi keuangan Anda</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- AI Analisis Usaha -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-chart-bar"></i> AI Analisis Usaha</h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="ai-description">Dapatkan analisis menyeluruh tentang kondisi usaha Anda</p>
+                                
+                                <div class="ai-output" id="analysisOutput">
+                                    <p>Analisis akan muncul setelah klik tombol</p>
+                                </div>
+                                
+                                <div class="analysis-buttons">
+                                    <button class="btn btn-primary" id="analyzeBusinessBtn">
+                                        <i class="fas fa-search"></i> Analisis Usaha Saya
+                                    </button>
+                                    <button class="btn btn-secondary" id="summaryBusinessBtn">
+                                        <i class="fas fa-file-alt"></i> Ringkasan Usaha Saya
+                                    </button>
+                                </div>
+                                
+                                <!-- Health Score -->
+                                <div class="health-score-container mt-4">
+                                    <h5>Health Score Usaha</h5>
+                                    <div class="score-display">
+                                        <div class="score-circle">
+                                            <span id="healthScoreValue">75</span>
+                                        </div>
+                                        <div class="score-info">
+                                            <p id="healthScoreCategory">Kategori: <strong>Waspada</strong></p>
+                                            <p id="healthScoreDescription">Usaha Anda memerlukan perhatian pada beberapa aspek</p>
+                                        </div>
+                                    </div>
+                                    <div class="score-ranges">
+                                        <div class="score-range healthy">
+                                            <span>80-100 = Sehat</span>
+                                        </div>
+                                        <div class="score-range warning">
+                                            <span>60-79 = Waspada</span>
+                                        </div>
+                                        <div class="score-range danger">
+                                            <span>&lt;60 = Berisiko</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Catatan Bisnis -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-sticky-note"></i> Catatan Bisnis</h4>
+                            </div>
+                            <div class="card-body">
+                                <p class="ai-description">Catat masalah, ide, atau rencana usaha Anda</p>
+                                
+                                <div class="form-group">
+                                    <textarea id="businessNote" class="form-control" rows="3" placeholder="Tulis catatan bisnis Anda di sini..."></textarea>
+                                </div>
+                                
+                                <div class="note-buttons">
+                                    <button class="btn btn-primary" id="saveNoteBtn">
+                                        <i class="fas fa-save"></i> Simpan Catatan
+                                    </button>
+                                    <button class="btn btn-secondary" id="clearNoteBtn">
+                                        <i class="fas fa-trash"></i> Hapus
+                                    </button>
+                                </div>
+                                
+                                <div class="saved-notes mt-3" id="savedNotes">
+                                    <h6>Catatan Tersimpan:</h6>
+                                    <p class="empty-message">Belum ada catatan tersimpan</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Riwayat Section -->
+            <div id="history" class="dashboard-section-content">
+                <div class="section-header">
+                    <h3><i class="fas fa-history"></i> Riwayat Data Usaha</h3>
+                    <p>Lihat dan kelola data usaha yang telah disimpan</p>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- Riwayat Data Harian -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-calendar-alt"></i> Riwayat Data Harian</h4>
+                                <div class="filter-controls">
+                                    <div class="form-group-inline">
+                                        <label for="filterDateFrom">Dari:</label>
+                                        <input type="date" id="filterDateFrom" class="form-control">
+                                    </div>
+                                    <div class="form-group-inline">
+                                        <label for="filterDateTo">Sampai:</label>
+                                        <input type="date" id="filterDateTo" class="form-control">
+                                    </div>
+                                    <button class="btn btn-secondary" id="filterHistoryBtn">
+                                        <i class="fas fa-filter"></i> Filter
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="data-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Tanggal</th>
+                                                <th>Modal</th>
+                                                <th>Penjualan</th>
+                                                <th>Laba/Rugi</th>
+                                                <th>Aksi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="historyTableBody">
+                                            <tr>
+                                                <td colspan="5" class="text-center">Belum ada data harian tersimpan</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                
+                                <div class="history-actions mt-3">
+                                    <button class="btn btn-success" id="exportMonthlyBtn">
+                                        <i class="fas fa-file-excel"></i> Ekspor ke Data Bulanan
+                                    </button>
+                                    <button class="btn btn-secondary" id="clearHistoryBtn">
+                                        <i class="fas fa-trash"></i> Hapus Riwayat
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Data Bulanan -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h4><i class="fas fa-chart-bar"></i> Data Bulanan (Akumulasi)</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="monthlyData" class="monthly-data">
+                                    <p>Data bulanan akan dihasilkan dari riwayat data harian</p>
+                                    <div id="monthlySummary" class="monthly-summary hidden">
+                                        <h5>Ringkasan Bulanan</h5>
+                                        <div class="summary-item">
+                                            <span>Total Modal:</span>
+                                            <span id="monthlyModal">0</span>
+                                        </div>
+                                        <div class="summary-item">
+                                            <span>Total Penjualan:</span>
+                                            <span id="monthlySales">0</span>
+                                        </div>
+                                        <div class="summary-item">
+                                            <span>Total Laba/Rugi:</span>
+                                            <span id="monthlyProfit" class="profit-text">0</span>
+                                        </div>
+                                        <div class="summary-item">
+                                            <span>Rata-rata Laba Harian:</span>
+                                            <span id="monthlyAvgProfit">0</span>
+                                        </div>
+                                        <div class="summary-item">
+                                            <span>Jumlah Hari Beroperasi:</span>
+                                            <span id="monthlyDays">0</span>
+                                        </div>
+                                        
+                                        <div class="monthly-conclusion mt-3">
+                                            <h6>Kesimpulan:</h6>
+                                            <p id="monthlyConclusion">-</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <button class="btn btn-primary mt-3" id="generateMonthlyBtn">
+                                    <i class="fas fa-calculator"></i> Generate Data Bulanan
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <!-- Export Data -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-download"></i> Export Data</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>Unduh laporan data usaha Anda dalam berbagai format</p>
+                                
+                                <div class="export-options">
+                                    <button class="btn btn-success btn-block" id="exportExcelBtn">
+                                        <i class="fas fa-file-excel"></i> Download Laporan (Excel)
+                                    </button>
+                                    
+                                    <button class="btn btn-secondary btn-block mt-2" id="exportCSVBtn">
+                                        <i class="fas fa-file-csv"></i> Download Laporan (CSV)
+                                    </button>
+                                    
+                                    <button class="btn btn-primary btn-block mt-2" id="exportPDFBtn">
+                                        <i class="fas fa-file-pdf"></i> Download Laporan (PDF)
+                                    </button>
+                                </div>
+                                
+                                <div class="export-preview mt-4">
+                                    <h6>Preview Data:</h6>
+                                    <div class="preview-content">
+                                        <p><strong>Nama Toko:</strong> <span id="exportStoreName">-</span></p>
+                                        <p><strong>Periode:</strong> <span id="exportPeriod">-</span></p>
+                                        <p><strong>Total Penjualan:</strong> <span id="exportTotalSales">0</span></p>
+                                        <p><strong>Status Usaha:</strong> <span id="exportBusinessStatus">-</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Analisis Kondisi Usaha -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h4><i class="fas fa-stethoscope"></i> Analisis Kondisi Usaha</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="conditionAnalysis">
+                                    <div class="condition-item">
+                                        <span class="condition-label">Keuangan:</span>
+                                        <div class="condition-bar">
+                                            <div class="condition-fill finance" style="width: 65%"></div>
+                                        </div>
+                                        <span class="condition-value">65%</span>
+                                    </div>
+                                    
+                                    <div class="condition-item">
+                                        <span class="condition-label">Operasional:</span>
+                                        <div class="condition-bar">
+                                            <div class="condition-fill operational" style="width: 80%"></div>
+                                        </div>
+                                        <span class="condition-value">80%</span>
+                                    </div>
+                                    
+                                    <div class="condition-item">
+                                        <span class="condition-label">Pemasaran:</span>
+                                        <div class="condition-bar">
+                                            <div class="condition-fill marketing" style="width: 50%"></div>
+                                        </div>
+                                        <span class="condition-value">50%</span>
+                                    </div>
+                                    
+                                    <div class="condition-item">
+                                        <span class="condition-label">Manajemen:</span>
+                                        <div class="condition-bar">
+                                            <div class="condition-fill management" style="width: 70%"></div>
+                                        </div>
+                                        <span class="condition-value">70%</span>
+                                    </div>
+                                    
+                                    <div class="condition-conclusion mt-3">
+                                        <h6>Kesimpulan Analisis:</h6>
+                                        <p id="conditionConclusion">Usaha Anda berada dalam kondisi waspada. Perlu perbaikan di aspek pemasaran dan keuangan.</p>
+                                    </div>
+                                </div>
+                                
+                                <button class="btn btn-primary btn-block mt-3" id="updateConditionBtn">
+                                    <i class="fas fa-sync"></i> Update Analisis
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Analisis Section -->
+            <div id="analysis" class="dashboard-section-content">
+                <div class="section-header">
+                    <h3><i class="fas fa-chart-bar"></i> Analisis Mendalam Usaha</h3>
+                    <p>Analisis data dan visualisasi kondisi usaha Anda</p>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-8">
+                        <!-- Grafik Ilustratif -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-chart-line"></i> Grafik Performa Usaha</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <!-- Grafik sederhana menggunakan div -->
+                                    <div class="simple-chart">
+                                        <div class="chart-title">Tren Laba/Rugi 7 Hari Terakhir</div>
+                                        <div class="chart-bars">
+                                            <div class="chart-bar-container">
+                                                <div class="chart-bar profit" style="height: 60%"></div>
+                                                <div class="chart-label">Sen</div>
+                                            </div>
+                                            <div class="chart-bar-container">
+                                                <div class="chart-bar profit" style="height: 75%"></div>
+                                                <div class="chart-label">Sel</div>
+                                            </div>
+                                            <div class="chart-bar-container">
+                                                <div class="chart-bar loss" style="height: 30%"></div>
+                                                <div class="chart-label">Rab</div>
+                                            </div>
+                                            <div class="chart-bar-container">
+                                                <div class="chart-bar profit" style="height: 80%"></div>
+                                                <div class="chart-label">Kam</div>
+                                            </div>
+                                            <div class="chart-bar-container">
+                                                <div class="chart-bar profit" style="height: 65%"></div>
+                                                <div class="chart-label">Jum</div>
+                                            </div>
+                                            <div class="chart-bar-container">
+                                                <div class="chart-bar profit" style="height: 90%"></div>
+                                                <div class="chart-label">Sab</div>
+                                            </div>
+                                            <div class="chart-bar-container">
+                                                <div class="chart-bar profit" style="height: 85%"></div>
+                                                <div class="chart-label">Min</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="chart-legend">
+                                        <div class="legend-item">
+                                            <div class="legend-color profit"></div>
+                                            <span>Laba</span>
+                                        </div>
+                                        <div class="legend-item">
+                                            <div class="legend-color loss"></div>
+                                            <span>Rugi</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="chart-controls mt-4">
+                                    <button class="btn btn-secondary" id="refreshChartBtn">
+                                        <i class="fas fa-sync"></i> Refresh Grafik
+                                    </button>
+                                    <button class="btn btn-primary" id="addDummyDataBtn">
+                                        <i class="fas fa-plus"></i> Tambah Data Demo
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Level UMKM -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h4><i class="fas fa-signal"></i> Level UMKM Anda</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="level-container">
+                                    <div class="level-stages">
+                                        <div class="level-stage" data-level="pemula">
+                                            <div class="stage-icon">
+                                                <i class="fas fa-seedling"></i>
+                                            </div>
+                                            <div class="stage-info">
+                                                <h5>Pemula</h5>
+                                                <p>Usaha baru mulai, fokus bertahan</p>
+                                            </div>
+                                            <div class="stage-indicator" id="levelPemula"></div>
+                                        </div>
+                                        
+                                        <div class="level-stage" data-level="berkembang">
+                                            <div class="stage-icon">
+                                                <i class="fas fa-chart-line"></i>
+                                            </div>
+                                            <div class="stage-info">
+                                                <h5>Berkembang</h5>
+                                                <p>Mulai stabil, fokus pertumbuhan</p>
+                                            </div>
+                                            <div class="stage-indicator" id="levelBerkembang"></div>
+                                        </div>
+                                        
+                                        <div class="level-stage" data-level="stabil">
+                                            <div class="stage-icon">
+                                                <i class="fas fa-award"></i>
+                                            </div>
+                                            <div class="stage-info">
+                                                <h5>Stabil</h5>
+                                                <p>Usaha matang, fokus ekspansi</p>
+                                            </div>
+                                            <div class="stage-indicator" id="levelStabil"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="level-result mt-4">
+                                        <h5>Level Anda: <span id="currentLevelText">Pemula</span></h5>
+                                        <p id="levelDescription">Berdasarkan analisis data usaha, level Anda ditentukan dari performa keuangan, konsistensi, dan potensi pertumbuhan.</p>
+                                        
+                                        <div class="level-requirements">
+                                            <h6>Untuk Naik Level:</h6>
+                                            <ul>
+                                                <li>Pertahankan laba positif minimal 30 hari berturut-turut</li>
+                                                <li>Tingkatkan health score di atas 80</li>
+                                                <li>Capai target penjualan bulanan secara konsisten</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <!-- Ringkasan Cepat -->
+                        <div class="card">
+                            <div class="card-header">
+                                <h4><i class="fas fa-file-alt"></i> Ringkasan Usaha Otomatis</h4>
+                            </div>
+                            <div class="card-body">
+                                <div id="autoSummary">
+                                    <p>Ringkasan usaha otomatis akan dibuat berdasarkan data yang Anda input. Cocok untuk laporan atau presentasi.</p>
+                                    
+                                    <div class="summary-output" id="autoSummaryOutput">
+                                        <p>Klik tombol di bawah untuk membuat ringkasan</p>
+                                    </div>
+                                    
+                                    <button class="btn btn-primary btn-block mt-3" id="generateAutoSummaryBtn">
+                                        <i class="fas fa-file-alt"></i> Buat Ringkasan Usaha
+                                    </button>
+                                    
+                                    <div class="summary-actions mt-3">
+                                        <button class="btn btn-secondary btn-block" id="copySummaryBtn">
+                                            <i class="fas fa-copy"></i> Salin Ringkasan
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Notifikasi Edukatif -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h4><i class="fas fa-bell"></i> Notifikasi Edukatif</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="notifications-list" id="educationalNotifications">
+                                    <div class="notification-item">
+                                        <i class="fas fa-exclamation-triangle warning"></i>
+                                        <div class="notification-content">
+                                            <p>Pengeluaran operasional cukup besar. Coba evaluasi biaya yang bisa dikurangi.</p>
+                                            <small>2 jam yang lalu</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="notification-item">
+                                        <i class="fas fa-lightbulb info"></i>
+                                        <div class="notification-content">
+                                            <p>Penjualan hari Sabtu meningkat 25%. Pertimbangkan promo khusus akhir pekan.</p>
+                                            <small>1 hari yang lalu</small>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="notification-item">
+                                        <i class="fas fa-chart-line success"></i>
+                                        <div class="notification-content">
+                                            <p>Health score usaha meningkat 5 poin. Pertahankan konsistensi!</p>
+                                            <small>3 hari yang lalu</small>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <button class="btn btn-secondary btn-block mt-3" id="refreshNotificationsBtn">
+                                    <i class="fas fa-sync"></i> Refresh Notifikasi
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Dashboard Admin Preview -->
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h4><i class="fas fa-cog"></i> Preview Admin</h4>
+                            </div>
+                            <div class="card-body">
+                                <p>Simulasi tampilan admin untuk mengelola data UMKM</p>
+                                
+                                <div class="admin-preview">
+                                    <div class="admin-stats">
+                                        <div class="stat-item">
+                                            <span class="stat-label">Total User</span>
+                                            <span class="stat-value">15</span>
+                                        </div>
+                                        <div class="stat-item">
+                                            <span class="stat-label">UMKM Aktif</span>
+                                            <span class="stat-value">12</span>
+                                        </div>
+                                        <div class="stat-item">
+                                            <span class="stat-label">Rata-rata Laba</span>
+                                            <span class="stat-value">Rp 3,2 Jt</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="admin-actions mt-3">
+                                        <button class="btn btn-primary btn-sm" id="viewUsersBtn">
+                                            <i class="fas fa-users"></i> Lihat User
+                                        </button>
+                                        <button class="btn btn-secondary btn-sm" id="viewUMKMBtn">
+                                            <i class="fas fa-store"></i> Lihat UMKM
+                                        </button>
+                                        <button class="btn btn-success btn-sm" id="exportAdminBtn">
+                                            <i class="fas fa-download"></i> Export Data
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer Dashboard -->
+            <div class="dashboard-footer">
+                <p>AI UMKM Assistant &copy; 2023 - Prototype Sistem Informasi UMKM Berbasis AI</p>
+                <div class="footer-info">
+                    <span><i class="fas fa-info-circle"></i> Ini adalah prototype semi-fungsional untuk simulasi</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Admin Dashboard -->
+    <section id="admin" class="admin-section hidden">
+        <div class="container">
+            <div class="admin-header">
+                <h2><i class="fas fa-cog"></i> Dashboard Admin AI UMKM Assistant</h2>
+                <p>Panel admin untuk mengelola data sistem</p>
+                <button class="btn btn-back" id="backFromAdminBtn">
+                    <i class="fas fa-arrow-left"></i> Kembali ke Beranda
+                </button>
+            </div>
+            
+            <div class="admin-controls">
+                <button class="btn btn-primary" id="adminViewUsersBtn">
+                    <i class="fas fa-users"></i> Lihat Daftar User
+                </button>
+                <button class="btn btn-secondary" id="adminViewUMKMBtn">
+                    <i class="fas fa-store"></i> Lihat Data UMKM
+                </button>
+                <button class="btn btn-success" id="adminExportDataBtn">
+                    <i class="fas fa-download"></i> Export Data
+                </button>
+                <button class="btn btn-danger" id="adminSimulateDataBtn">
+                    <i class="fas fa-database"></i> Generate Data Dummy
+                </button>
+            </div>
+            
+            <div class="admin-content">
+                <!-- User List -->
+                <div id="adminUserList" class="admin-card">
+                    <h3><i class="fas fa-users"></i> Daftar User (Dummy Data)</h3>
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Nama Toko</th>
+                                    <th>Pemilik</th>
+                                    <th>Jenis Usaha</th>
+                                    <th>Status</th>
+                                    <th>Level</th>
+                                    <th>Bergabung</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminUserTableBody">
+                                <!-- Data akan diisi oleh JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- UMKM Data -->
+                <div id="adminUMKMData" class="admin-card hidden">
+                    <h3><i class="fas fa-store"></i> Data UMKM (Dummy Data)</h3>
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Nama UMKM</th>
+                                    <th>Penjualan Rata-rata</th>
+                                    <th>Laba Rata-rata</th>
+                                    <th>Health Score</th>
+                                    <th>Level</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminUMKMTableBody">
+                                <!-- Data akan diisi oleh JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- Export Data -->
+                <div id="adminExport" class="admin-card hidden">
+                    <h3><i class="fas fa-download"></i> Export Data Sistem</h3>
+                    <div class="export-options">
+                        <div class="export-card">
+                            <h4><i class="fas fa-file-excel"></i> Export ke Excel</h4>
+                            <p>Unduh seluruh data sistem dalam format Excel</p>
+                            <button class="btn btn-success" id="adminExportExcelBtn">
+                                <i class="fas fa-download"></i> Download Excel
+                            </button>
+                        </div>
+                        
+                        <div class="export-card">
+                            <h4><i class="fas fa-file-csv"></i> Export ke CSV</h4>
+                            <p>Unduh data dalam format CSV untuk analisis</p>
+                            <button class="btn btn-secondary" id="adminExportCSVBtn">
+                                <i class="fas fa-download"></i> Download CSV
+                            </button>
+                        </div>
+                        
+                        <div class="export-card">
+                            <h4><i class="fas fa-file-pdf"></i> Export Laporan</h4>
+                            <p>Buat laporan PDF lengkap data UMKM</p>
+                            <button class="btn btn-danger" id="adminExportPDFBtn">
+                                <i class="fas fa-download"></i> Download PDF
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="export-preview mt-4">
+                        <h4>Preview Data yang Akan Diexport:</h4>
+                        <div class="preview-content">
+                            <p><strong>Jumlah User:</strong> <span id="adminUserCount">0</span></p>
+                            <p><strong>Jumlah UMKM:</strong> <span id="adminUMKMCount">0</span></p>
+                            <p><strong>Rata-rata Health Score:</strong> <span id="adminAvgHealthScore">0</span></p>
+                            <p><strong>Periode Data:</strong> <span id="adminDataPeriod">-</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="admin-footer">
+                <p><i class="fas fa-info-circle"></i> Dashboard Admin - Simulasi sistem admin tanpa backend penuh</p>
+                <p>Fitur ini hanya untuk demonstrasi prototype</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal untuk Detail -->
+    <div id="detailModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Detail Data</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Konten modal akan diisi oleh JavaScript -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="closeModalBtn">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script -->
+    <script src="script.js"></script>
+</body>
+</html>
